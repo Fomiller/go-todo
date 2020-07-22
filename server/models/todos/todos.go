@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"net/http"
 	"time"
 
 	"github.com/fomiller/go-todo/server/config"
@@ -64,8 +65,13 @@ func FindOne() {
 
 }
 
-func CreateTodo() {
-
+func CreateTodo(res http.ResponseWriter, req *http.Request) {
+	var newTodo = Todo{"todo-1", false, time.Now()}
+	insertResult, err := collection.InsertOne(context.TODO(), newTodo)
+	if err != nil {
+		log.Panic(err)
+	}
+	fmt.Println("new todo created: ", insertResult)
 }
 
 func UpdateTodo() {
