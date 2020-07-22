@@ -6,8 +6,10 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/go", indexhandler)
+	// routes.
+	http.HandleFunc("/", indexhandler)
 
+	// start server.
 	http.ListenAndServe(":8080", nil)
 }
 
