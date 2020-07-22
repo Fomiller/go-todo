@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default function Todo(props){
-  console.log(props)
   return(
     <div>
       <h2>{props.info.Todo}</h2>
