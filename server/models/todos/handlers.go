@@ -6,8 +6,11 @@ import (
 )
 
 func Test(res http.ResponseWriter, req *http.Request) {
-	// fmt.Println("test")
-	// fmt.Fprintf(res, "working")
-	todos := FindAll()
-	json.NewEncoder(res).Encode(todos)
+	if req.Method == http.MethodGet {
+		todos := FindAll()
+		json.NewEncoder(res).Encode(todos)
+	} else if req.Method == http.MethodPost {
+		CreateTodo(req)
+	}
+
 }

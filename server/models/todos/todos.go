@@ -2,10 +2,10 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
-	"time"
 
 	"github.com/fomiller/go-todo/server/config"
 	"go.mongodb.org/mongo-driver/bson"
@@ -15,7 +15,6 @@ import (
 type Todo struct {
 	Todo      string
 	Completed bool
-	Time      time.Time
 }
 
 var (
@@ -65,13 +64,25 @@ func FindOne() {
 
 }
 
-func CreateTodo(res http.ResponseWriter, req *http.Request) {
-	var newTodo = Todo{"todo-1", false, time.Now()}
+func CreateTodo(req *http.Request) {
+	var newTodo Todo
+	decoder := json.NewDecoder(req.Body)
+	err := decoder.Decode(&newTodo)
+	if err != nil {
+		log.Panic(err)
+	}
+
 	insertResult, err := collection.InsertOne(context.TODO(), newTodo)
 	if err != nil {
 		log.Panic(err)
 	}
-	fmt.Println("new todo created: ", insertResult)
+	fmt.Println("inserted a single document", insertResult)
+	// var newTodo = Todo{"todo-1", false, time.Now()}
+	// insertResult, err := collection.InsertOne(context.TODO(), newTodo)
+	// if err != nil {
+	// 	log.Panic(err)
+	// }
+	// fmt.Println("new todo created: ", insertResult)
 }
 
 func UpdateTodo() {
