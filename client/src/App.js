@@ -6,7 +6,12 @@ import API from './utils/api';
 
 
 function App() {
+  // establish state
   const [todos, setTodos] = useState([])
+  const [formObject, setFormObject] = useState({
+    Todo: "",
+    Completed: false,
+  })
 
   // load todos when App component renders
   useEffect( () => {
@@ -28,16 +33,40 @@ function App() {
     console.log(todos);
   }
 
+  function handleInputChange(event) {
+    const {name, value} = event.target
+    setFormObject({...formObject, [name]: value})
+    console.log(formObject);
+  }
+  
+  function handleFormSubmit(event) {
+    event.preventDefault();
+    if (formObject.Todo) {
+      API.createTodo({
+        Todo: formObject.Todo,
+        Completed: formObject.Completed,
+        Time: formObject.Time,
+      })
+        .then(()=> setFormObject({
+          Todo: "",
+          Completed: "",
+          Time: "",
+        }))
+        .then(() => loadTodos())
+        .catch(err => console.log(err));
+    }
+  }
+
   return (
     <div className="App">
-      <form action="/api/todo" method="POST">
-        <input type="text" name="todo" placeholder="Add a Todo" autoFocus={true}/>
-        <input type="submit"></input>
+      <form >
+        <input type="text" name="Todo" placeholder="Add a Todo" onChange={handleInputChange}autoFocus={true}/>
+        {/* <input type="submit"></input> */}
       </form>
-      <button onClick={handleSubmit}>click me</button>
+      <button onClick={handleFormSubmit}>Add Todo</button>
       {/* render todo compoent for each todo loaded. */}
       { todos.map( todo => (
-        <Todo info={todo} key={todo.Time}/>
+        <Todo info={todo}/>
       )) }
     </div>
   );
