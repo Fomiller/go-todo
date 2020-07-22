@@ -14,7 +14,7 @@ func main() {
 	// routes.
 	// http.HandleFunc("/", indexhandler)
 	http.HandleFunc("/api/todo/", models.Test)
-	http.HandleFunc("/api/create/", models.CreateTodo)
+	// http.HandleFunc("/api/create/", models.CreateTodo)
 
 	// start server.
 	http.ListenAndServe(":8080", nil)
