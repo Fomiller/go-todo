@@ -9,8 +9,8 @@ function App() {
   // establish state
   const [todos, setTodos] = useState([])
   const [formObject, setFormObject] = useState({
-    Todo: "",
-    Completed: false,
+    todo: "",
+    completed: false,
   })
 
   // load todos when App component renders
@@ -28,11 +28,7 @@ function App() {
     .catch(err => console.log(err));
   }
 
-  const handleSubmit =  async(e) =>{
-    e.preventDefault();
-    console.log(todos);
-  }
-
+  // changes todos state on form input.
   function handleInputChange(event) {
     const {name, value} = event.target
     setFormObject({...formObject, [name]: value})
@@ -43,14 +39,12 @@ function App() {
     event.preventDefault();
     if (formObject.Todo) {
       API.createTodo({
-        Todo: formObject.Todo,
-        Completed: formObject.Completed,
-        Time: formObject.Time,
+        todo: formObject.Todo,
+        completed: formObject.Completed,
       })
         .then(()=> setFormObject({
-          Todo: "",
-          Completed: "",
-          Time: "",
+          todo: "",
+          completed: "",
         }))
         .then(() => loadTodos())
         .catch(err => console.log(err));
@@ -66,7 +60,7 @@ function App() {
       <button onClick={handleFormSubmit}>Add Todo</button>
       {/* render todo compoent for each todo loaded. */}
       { todos.map( todo => (
-        <Todo info={todo}/>
+        <Todo info={todo} key={todo.id}/>
       )) }
     </div>
   );
