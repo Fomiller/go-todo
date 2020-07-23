@@ -6,6 +6,9 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"time"
+
+	"go.mongodb.org/mongo-driver/bson/primitive"
 
 	"github.com/fomiller/go-todo/server/config"
 	"go.mongodb.org/mongo-driver/bson"
@@ -13,8 +16,10 @@ import (
 )
 
 type Todo struct {
-	Todo      string
-	Completed bool
+	Todo      string             `json:"todo" bson:"todo"`
+	Completed bool               `json:"completed" bson:"completed"`
+	Time      time.Time          `json:"time,omitempty" bson:"time,omitempty"`
+	Id        primitive.ObjectID `json:"id,omitempty" bson:"_id,omitempty"`
 }
 
 var (
@@ -65,12 +70,16 @@ func FindOne() {
 }
 
 func CreateTodo(req *http.Request) {
-	var newTodo Todo
-	decoder := json.NewDecoder(req.Body)
-	err := decoder.Decode(&newTodo)
-	if err != nil {
-		log.Panic(err)
-	}
+	// var newTodo Todo
+	// decoder := json.NewDecoder(req.Body)
+	// err := decoder.Decode(&newTodo)
+	// if err != nil {
+	// 	log.Panic(err)
+	// }
+	newTodo := Todo{}
+	json.NewDecoder(req.Body).Decode(&newTodo)
+	newTodo.Time = time.Now()
+	fmt.Printf("TEST: %v", newTodo)
 
 	insertResult, err := collection.InsertOne(context.TODO(), newTodo)
 	if err != nil {
