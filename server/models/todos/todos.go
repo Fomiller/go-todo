@@ -70,12 +70,6 @@ func FindOne() {
 }
 
 func CreateTodo(req *http.Request) {
-	// var newTodo Todo
-	// decoder := json.NewDecoder(req.Body)
-	// err := decoder.Decode(&newTodo)
-	// if err != nil {
-	// 	log.Panic(err)
-	// }
 	newTodo := Todo{}
 	json.NewDecoder(req.Body).Decode(&newTodo)
 	newTodo.Time = time.Now()
@@ -86,12 +80,6 @@ func CreateTodo(req *http.Request) {
 		log.Panic(err)
 	}
 	fmt.Println("inserted a single document", insertResult)
-	// var newTodo = Todo{"todo-1", false, time.Now()}
-	// insertResult, err := collection.InsertOne(context.TODO(), newTodo)
-	// if err != nil {
-	// 	log.Panic(err)
-	// }
-	// fmt.Println("new todo created: ", insertResult)
 }
 
 func UpdateTodo() {
