@@ -22,6 +22,10 @@ type Todo struct {
 	Id        primitive.ObjectID `json:"id,omitempty" bson:"_id,omitempty"`
 }
 
+type Test_struct struct {
+	ID string
+}
+
 var (
 	collection *mongo.Collection
 )
@@ -86,6 +90,17 @@ func UpdateTodo() {
 
 }
 
-func DeleteTodo() {
+func DeleteTodo(req *http.Request) {
+	// init variables to hold data
+	newTodo := Todo{}
+	// decode req.Body
+	json.NewDecoder(req.Body).Decode(&newTodo)
+
+	// delete Todo from database
+	deleteResult, err := collection.DeleteOne(context.TODO(), bson.M{"_id": newTodo.Id})
+	if err != nil {
+		log.Panic(err)
+	}
+	fmt.Println("single document was deleted: ", deleteResult)
 
 }
