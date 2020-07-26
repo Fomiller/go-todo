@@ -52,6 +52,9 @@ function App() {
     }
   }
 
+  const testing = () => {
+    console.log("testing")
+  }
 
   return (
     <div className="App">
@@ -62,7 +65,9 @@ function App() {
       <button onClick={handleFormSubmit}>Add Todo</button>
       {/* render todo compoent for each todo loaded. */}
       { todos.map( todo => (
-        <Todo info={todo} key={todo.id}/>
+        <Todo info={todo} key={todo.id}>
+          <CompleteBtn props={todo} onClick={() => testing()}/>
+        </Todo>
       )) }
     </div>
   );
