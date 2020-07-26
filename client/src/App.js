@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Todo from './components/todo';
+import CompleteBtn from './components/completeBtn';
+import DeleteBtn from './components/deleteBtn';
 import './App.css';
 import API from './utils/api';
 
@@ -22,7 +24,6 @@ function App() {
   function loadTodos() {
     API.getTodos()
     .then(res => {
-      console.log(res.data);
       setTodos(res.data);
     })
     .catch(err => console.log(err));
@@ -50,6 +51,7 @@ function App() {
         .catch(err => console.log(err));
     }
   }
+
 
   return (
     <div className="App">
