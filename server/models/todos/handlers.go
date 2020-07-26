@@ -9,8 +9,11 @@ func Test(res http.ResponseWriter, req *http.Request) {
 	if req.Method == http.MethodGet {
 		todos := FindAll()
 		json.NewEncoder(res).Encode(todos)
-	} else if req.Method == http.MethodPost {
+	}
+	if req.Method == http.MethodPost {
 		CreateTodo(req)
 	}
-
+	if req.Method == http.MethodDelete {
+		DeleteTodo(req)
+	}
 }
