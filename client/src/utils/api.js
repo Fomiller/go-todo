@@ -6,5 +6,8 @@ export default {
   },
   createTodo: function(data){
     return axios.post("api/todo/", data)
+  },
+  deleteTodo: function(id){
+    return axios.delete("api/todo/", {data:id})
   }
 }
