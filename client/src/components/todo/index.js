@@ -7,8 +7,7 @@ export default function Todo(props){
     <div>
       <h2>{props.info.todo}</h2>
       <h2>{props.info.time}</h2>
-      <h2>{props.info.id}</h2>
-      {!props.info.completed ? (<h4>false</h4>) : (<h4>true</h4>)}
+      {!props.info.completed ? (<h4>Completed: false</h4>) : (<h4>Completed: true</h4>)}
       <CompleteBtn props={props.info}/>
       <DeleteBtn props={props.info}/>
     </div>
