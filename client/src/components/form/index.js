@@ -1,13 +1,14 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {useAppContext} from '../../utils/globalContext';
 import API from '../../utils/api';
 
 export default function TodoForm(){
   const [state, dispatch] = useAppContext();
+  const test = useRef(null);
   const [formObject, setFormObject] = useState({
     Todo: "",
     completed: false,
-  })
+  });
 
   function handleInputChange(event) {
     const {name, value} = event.target
@@ -21,12 +22,15 @@ export default function TodoForm(){
         todo: formObject.Todo,
         completed: formObject.Completed,
       })
-        .then(()=> setFormObject({
-          Todo: "",
-          completed: "",
-        }))
-        .then(() => loadTodos())
-        .catch(err => console.log(err));
+      .then(()=> setFormObject({
+        Todo: "",
+        completed: "",
+      }))
+      .then(()=>{
+        test.current.value = "";
+      })
+      .then(() => loadTodos())
+      .catch(err => console.log(err));
     }
   }
 
@@ -41,10 +45,10 @@ export default function TodoForm(){
 
   return(
     <div>
-      <form >
-        <input type="text" name="Todo" placeholder="Add a Todo" onChange={handleInputChange} autoFocus={true}/>
+      <form>
+        <input id="todoInput" ref={test} type="text" name="Todo" placeholder="Add a Todo" onChange={handleInputChange} autoFocus={true}/>
+        <button onClick={handleFormSubmit}>Add Todo</button>
       </form>
-      <button onClick={handleFormSubmit}>Add Todo</button>
     </div>
   )
 }
