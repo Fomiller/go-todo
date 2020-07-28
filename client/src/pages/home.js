@@ -22,16 +22,24 @@ export default function Home(){
     })
     .catch(err => console.log(err));
   }
-
-  return(
-    <div className="App">
-    <TodoForm/>
-    { state.todos.map( todo => (
-      <Todo info={todo} key={todo.id}>
-        <CompleteBtn props={todo} />
-        <DeleteBtn props={todo}/>
-      </Todo>
-    )) }
-  </div>
-  )
+  if (state.todos) {
+    return(
+      <div className="App">
+      <TodoForm/>
+      { state.todos.map( todo => (
+        <Todo info={todo} key={todo.id}>
+          <CompleteBtn props={todo} />
+          <DeleteBtn props={todo}/>
+        </Todo>
+      )) }
+    </div>
+    )
+  }
+  else {
+    return(
+      <div className="App">
+      <TodoForm/>
+    </div>
+    )
+  }
 }
