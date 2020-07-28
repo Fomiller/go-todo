@@ -9,5 +9,8 @@ export default {
   },
   deleteTodo: function(id){
     return axios.delete("api/todo/", {data:id})
+  },
+  updateTodo : function(data){
+    return axios.put("api/todo/", {id: data.id, completed: data.completed})
   }
 }
