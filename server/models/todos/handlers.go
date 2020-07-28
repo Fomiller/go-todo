@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-func Test(res http.ResponseWriter, req *http.Request) {
+func TodoHandler(res http.ResponseWriter, req *http.Request) {
 	if req.Method == http.MethodGet {
 		todos := FindAll()
 		json.NewEncoder(res).Encode(todos)
@@ -15,5 +15,8 @@ func Test(res http.ResponseWriter, req *http.Request) {
 	}
 	if req.Method == http.MethodDelete {
 		DeleteTodo(req)
+	}
+	if req.Method == http.MethodPut {
+		UpdateTodo(req)
 	}
 }
