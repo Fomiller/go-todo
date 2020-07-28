@@ -77,7 +77,6 @@ func CreateTodo(req *http.Request) {
 	newTodo := Todo{}
 	json.NewDecoder(req.Body).Decode(&newTodo)
 	newTodo.Time = time.Now()
-	fmt.Printf("TEST: %v", newTodo)
 
 	insertResult, err := collection.InsertOne(context.TODO(), newTodo)
 	if err != nil {
@@ -86,8 +85,24 @@ func CreateTodo(req *http.Request) {
 	fmt.Println("inserted a single document", insertResult)
 }
 
-func UpdateTodo() {
+func UpdateTodo(req *http.Request) {
+	updateTodo := Todo{}
+	json.NewDecoder(req.Body).Decode(&updateTodo)
+	filter := bson.D{{Key: "_id", Value: updateTodo.Id}}
+	update := bson.M{"$set": bson.M{"Completed": !updateTodo.Completed}}
 
+	updateResult, err := collection.UpdateOne(
+		context.TODO(),
+		filter,
+		update,
+	)
+	if err != nil {
+		log.Panic(err)
+	}
+
+	// fmt.Printf("Update Result: %v", updateTodo.Id)
+	// fmt.Printf("Update Result: %v", updateTodo.Completed)
+	fmt.Printf("Update Result: %v", updateResult)
 }
 
 func DeleteTodo(req *http.Request) {
