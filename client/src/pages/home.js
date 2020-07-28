@@ -23,7 +23,7 @@ export default function Home(){
     .catch(err => console.log(err));
   }
 
-  
+
   if (!state.todos) {
     return(
       <div className="App">
@@ -37,7 +37,7 @@ export default function Home(){
       <TodoForm/>
       { state.todos.map( todo => (
         <Todo info={todo} key={todo.id}>
-          <CompleteBtn props={todo} />
+          <CompleteBtn props={todo}/>
           <DeleteBtn props={todo}/>
         </Todo>
       )) }
