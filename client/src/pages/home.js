@@ -22,7 +22,16 @@ export default function Home(){
     })
     .catch(err => console.log(err));
   }
-  if (state.todos) {
+
+  
+  if (!state.todos) {
+    return(
+      <div className="App">
+      <TodoForm/>
+    </div>
+    )
+  }
+  else {
     return(
       <div className="App">
       <TodoForm/>
@@ -32,13 +41,6 @@ export default function Home(){
           <DeleteBtn props={todo}/>
         </Todo>
       )) }
-    </div>
-    )
-  }
-  else {
-    return(
-      <div className="App">
-      <TodoForm/>
     </div>
     )
   }
