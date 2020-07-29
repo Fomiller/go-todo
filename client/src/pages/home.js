@@ -6,6 +6,7 @@ import Todo from '../components/todo';
 import '../App.css';
 import {useAppContext} from '../utils/globalContext';
 import API from '../utils/api';
+import Container from '../components/container';
 
 export default function Home(){
   const [state, dispatch] = useAppContext();
@@ -23,25 +24,26 @@ export default function Home(){
     .catch(err => console.log(err));
   }
 
-
+  // if no todos 
   if (!state.todos) {
     return(
-      <div className="App">
-      <TodoForm/>
-    </div>
+      <Container>
+        <TodoForm/>
+      </Container>
     )
   }
+  // if todos
   else {
-    return(
-      <div className="App">
-      <TodoForm/>
-      { state.todos.map( todo => (
-        <Todo info={todo} key={todo.id}>
-          <CompleteBtn props={todo}/>
-          <DeleteBtn props={todo}/>
-        </Todo>
-      )) }
-    </div>
+    return (
+      <Container>
+        <TodoForm/>
+        { state.todos.map( todo => (
+          <Todo props={todo} key={todo.id}>
+            <CompleteBtn props={todo}/>
+            <DeleteBtn props={todo}/>
+          </Todo>
+        )) }
+      </Container>
     )
   }
 }
