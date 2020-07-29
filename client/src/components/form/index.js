@@ -44,11 +44,22 @@ export default function TodoForm(){
   }
 
   return(
-    <div>
-      <form>
-        <input id="todoInput" ref={test} type="text" name="Todo" placeholder="Add a Todo" onChange={handleInputChange} autoFocus={true}/>
-        <button onClick={handleFormSubmit}>Add Todo</button>
-      </form>
+    <div className="row my-5">
+      <div className="col">
+        <form className="form-inline d-flex justify-content-center">
+          <input
+          id="todoInput"
+          className="form-control mr-3 "
+          ref={test}
+          type="text"
+          name="Todo"
+          placeholder="Add a Todo"
+          onChange={handleInputChange}
+          autoFocus={true}
+          />
+          <button className="btn btn-success my-2" onClick={handleFormSubmit}>Add Todo</button>
+        </form>
+      </div>
     </div>
   )
 }
