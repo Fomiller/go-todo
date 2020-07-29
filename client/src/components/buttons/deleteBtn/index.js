@@ -29,8 +29,6 @@ export default function DeleteBtn({props, onClick}){
   }
 
   return(
-    <div>
-      <button data-todo-id={props.id} className="btn btn-danger" onClick={() => handleDelete(props.id)}>Delete</button>
-    </div>
+    <button data-todo-id={props.id} className="btn btn-danger" onClick={() => handleDelete(props.id)}>Delete</button>
   )
 }
