@@ -18,7 +18,7 @@ import (
 type Todo struct {
 	Todo      string             `json:"todo" bson:"todo"`
 	Completed bool               `json:"completed" bson:"completed"`
-	Time      time.Time          `json:"time,omitempty" bson:"time,omitempty"`
+	Time      string             `json:"time,omitempty" bson:"time,omitempty"`
 	Id        primitive.ObjectID `json:"id,omitempty" bson:"_id,omitempty"`
 }
 
@@ -65,7 +65,6 @@ func FindAll() []*Todo {
 		log.Panic(err)
 	}
 
-	fmt.Printf("Found multiple documents (array of pointers) : %v\n", results)
 	return results
 }
 
@@ -75,8 +74,8 @@ func FindOne() {
 
 func CreateTodo(req *http.Request) {
 	newTodo := Todo{}
+	newTodo.Time = time.Now().Format("Jan-02-2006")
 	json.NewDecoder(req.Body).Decode(&newTodo)
-	newTodo.Time = time.Now()
 
 	insertResult, err := collection.InsertOne(context.TODO(), newTodo)
 	if err != nil {
