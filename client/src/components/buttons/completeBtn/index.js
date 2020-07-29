@@ -3,6 +3,7 @@ import './completeBtn.css'
 import API from '../../../utils/api';
 import { useAppContext } from '../../../utils/globalContext';
 
+
 export default function CompleteBtn({props}){
   const [state, dispatch] = useAppContext()
 
@@ -26,7 +27,7 @@ export default function CompleteBtn({props}){
 
   return(
     <div>
-      <button data-todo-id={props.id} data className="completeBtn" onClick={() => handleUpdate({id: props.id, completed: props.completed})}>Complete</button>
+      <button data-todo-id={props.id} className="btn btn-success" onClick={() => handleUpdate({id: props.id, completed: props.completed})}>Complete</button>
     </div>
   )
 }
