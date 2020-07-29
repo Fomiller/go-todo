@@ -1,0 +1,28 @@
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/mixins";
+
+$theme-colors: (
+  "primary": #0074d9,
+  "danger": #ff4136,
+  "custom": #4b0082,
+);
+
+@function theme-color-level($color-name, $level) {
+  $color: theme-color($color-name);
+  $color-base: if($level > 0, #000, #fff);
+  $level: abs($level);
+
+  @return mix($color-base, $color, $level * $theme-color-interval);
+}
+
+.btn-purple {
+  color: white;
+  background-color: var(--indigo);
+  border-color: var(--indigo);
+}
+.btn-purple:hover {
+  color: white;
+  background-color:theme-color-level(custom, 1);
+  border-color:theme-color-level(custom, 1);
+}
